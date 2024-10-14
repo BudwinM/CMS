@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { Box, Grid, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Typography } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import ListAltIcon from '@mui/icons-material/ListAlt';
-import DescriptionIcon from '@mui/icons-material/Description';
+import LogoutIcon from '@mui/icons-material/Logout';
 import InventoryIcon from '@mui/icons-material/Inventory';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable';
-import axios from 'axios';
 
 const URL = "http://localhost:4001/employees";
 
@@ -21,33 +19,33 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 function Sidebar() {
     return (
-        <Box sx={{ width: 240, backgroundColor: '#1C1C1C', color: '#FFF', minHeight: '100vh', paddingTop: 2 }}>
-            <Typography variant="h6" sx={{ paddingLeft: 2, fontWeight: 'bold' }}>Hiruna Kithsandu</Typography>
-            <Typography variant="subtitle2" sx={{ paddingLeft: 2, color: '#ccc' }}>Employee Manager</Typography>
-            <Box sx={{ paddingTop: 4 }}>
-                <Button component={Link} to="/EmployeeDashboard" startIcon={<DashboardIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
-                    Dashboard
-                </Button>
-                <Button component={Link} to="/EmployeeList" startIcon={<PeopleIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
-                    Employees
-                </Button>
-                <Button component={Link} to="/attendance" startIcon={<ListAltIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF', backgroundColor: '#FBBF24' }}>
-                    Attendance
-                </Button>
-                <Button component={Link} to="/payroll" startIcon={<DescriptionIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
-                    Payroll
-                </Button>
-                <Button component={Link} to="/project-requests" startIcon={<InventoryIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
-                    Project Requests
-                </Button>
-            </Box>
+      <Box sx={{ width: 240, backgroundColor: '#1C1C1C', color: '#FFF', minHeight: '100vh', paddingTop: 2 }}>
+        <Typography variant="h6" sx={{ paddingLeft: 2 }}>Hiruna Kithsandu</Typography>
+        <Typography variant="subtitle2" sx={{ paddingLeft: 2 }}>Employee Manager</Typography>
+        <Box sx={{ paddingTop: 4 }}>
+          <Button component={Link} to="/EmployeeDashboard" startIcon={<DashboardIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
+            Dashboard
+          </Button>
+          <Button component={Link} to="/EmployeeList" startIcon={<PeopleIcon />} fullWidth sx={{ justifyContent: 'flex-start', backgroundColor: '#FBBF24', color: '#FFF' }}>
+            Employees
+          </Button>
+          <Button component={Link} to="/attendance" startIcon={<ListAltIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
+            Attendance
+          </Button>
+          <Button component={Link} to="/project-requests" startIcon={<InventoryIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
+            Project Requests
+          </Button>
+          <Button component={Link} to="/" startIcon={<LogoutIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
+            Logout
+          </Button>
         </Box>
+      </Box>
     );
 }
 
 const fetchEmployees = async () => {
     try {
-        const response = await axios.get(URL); // Use the URL variable here
+        const response = await axios.get(URL);
         return Array.isArray(response.data) ? response.data : [response.data];
     } catch (error) {
         console.error('Error fetching employees:', error);
@@ -57,61 +55,65 @@ const fetchEmployees = async () => {
 
 function EmployeeList() {
     const [employees, setEmployees] = useState([]);
+    const [attendance, setAttendance] = useState({});
     const navigate = useNavigate();
 
     useEffect(() => {
         fetchEmployees().then((data) => {
-            console.log(data); // Log to check if data is fetched
+            const initialAttendance = {};
+            data.forEach((employee) => {
+                initialAttendance[employee._id] = false; // Default to 'absent' (false)
+            });
+            setAttendance(initialAttendance); // Initialize attendance state
             setEmployees(data);
         }).catch((error) => {
             console.error('Error fetching employees:', error);
         });
     }, []);
 
-    const handleEdit = (id) => {
-        navigate(`/employee/${id}`); // Navigate to the employee details page
+    const handleMarkAttendance = (id) => {
+        setAttendance((prevState) => ({
+            ...prevState,
+            [id]: !prevState[id], // Toggle attendance status (present/absent)
+        }));
     };
 
-    const handlePDF = () => {
-        const doc = new jsPDF();
-        doc.text('Employee Details Report', 10, 10);
-
-        doc.autoTable({
-            head: [['ID', 'Name', 'Email', 'Position', 'Phone', 'Address']],
-            body: employees.map((employee) => [employee.EMPID, employee.name, employee.email, employee.position, employee.phone, employee.address]),
-            startY: 20,
-            margin: { top: 20 },
-            styles: {
-                overflow: 'linebreak',
-                fontSize: 10,
-            },
-            headStyles: {
-                fillColor: [0, 0, 0],
-                textColor: [255, 255, 255],
-            },
-        });
-
-        doc.save('employee-details.pdf');
-    };
+    const presentCount = Object.values(attendance).filter((status) => status).length;
+    const absentCount = employees.length - presentCount;
 
     const data = {
         labels: ['Present', 'Absent'],
         datasets: [
             {
-                data: [85, 15],
+                data: [presentCount, absentCount],
                 backgroundColor: ['#3b82f6', '#ef4444'],
             },
         ],
     };
 
-    // Function to generate PDF
-    const generatePDF = () => {
+    const downloadPDF = () => {
         const doc = new jsPDF();
-        doc.autoTable({
-            head: [['Name', 'Date', 'Punch In', 'Punch Out', 'Availability']],
-            body: [],
+        const tableColumn = ['Name', 'Email', 'Position', 'Phone', 'Attendance'];
+        const tableRows = [];
+
+        employees.forEach((employee) => {
+            const employeeData = [
+                employee.name,
+                employee.email,
+                employee.position,
+                employee.phone,
+                attendance[employee._id] ? 'Present' : 'Absent',
+            ];
+            tableRows.push(employeeData);
         });
-        doc.save('attendance-report.pdf');
+
+        doc.text('Employee Attendance Report', 14, 15);
+        doc.autoTable({
+            head: [tableColumn],
+            body: tableRows,
+            startY: 20,
+        });
+        doc.save('attendance_report.pdf');
     };
 
     return (
@@ -123,10 +125,10 @@ function EmployeeList() {
                         <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 4 }}>
                             Attendance List
                         </Typography>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 2 }}>
-                            All Employees
-                        </Typography>
-                        <TableContainer component={Paper} sx={{ border: '1px solid', borderColor: 'divider' }}>
+                        <Button variant="contained" color="primary" onClick={downloadPDF}>
+                            Download PDF
+                        </Button>
+                        <TableContainer component={Paper} sx={{ border: '1px solid', borderColor: 'divider', mt: 2 }}>
                             <Table>
                                 <TableHead sx={{ backgroundColor: '#f0f0f0' }}>
                                     <TableRow>
@@ -134,13 +136,13 @@ function EmployeeList() {
                                         <TableCell><strong>Email</strong></TableCell>
                                         <TableCell><strong>Job Role</strong></TableCell>
                                         <TableCell><strong>Phone</strong></TableCell>
-                                        <TableCell><strong>Actions</strong></TableCell>
+                                        <TableCell><strong>Attendance</strong></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {employees.length === 0 ? (
                                         <TableRow>
-                                            <TableCell colSpan={5} align="center">No employees found.</TableCell>
+                                            <TableCell colSpan={6} align="center">No employees found.</TableCell>
                                         </TableRow>
                                     ) : (
                                         employees.map((employee) => (
@@ -152,10 +154,10 @@ function EmployeeList() {
                                                 <TableCell>
                                                     <Button
                                                         variant="contained"
-                                                        sx={{ backgroundColor: '#FFC107', color: 'black', marginRight: 1 }}
-                                                        onClick={() => handleEdit(employee._id)}
+                                                        color={attendance[employee._id] ? 'success' : 'error'}
+                                                        onClick={() => handleMarkAttendance(employee._id)}
                                                     >
-                                                        Details
+                                                        {attendance[employee._id] ? 'Present' : 'Absent'}
                                                     </Button>
                                                 </TableCell>
                                             </TableRow>
@@ -176,10 +178,10 @@ function EmployeeList() {
                         <Pie data={data} />
                         <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-around' }}>
                             <Typography variant="body1" sx={{ color: '#3b82f6' }}>
-                                Present: 85%
+                                Present: {((presentCount / employees.length) * 100).toFixed(2)}%
                             </Typography>
                             <Typography variant="body1" sx={{ color: '#ef4444' }}>
-                                Absent: 15%
+                                Absent: {((absentCount / employees.length) * 100).toFixed(2)}%
                             </Typography>
                         </Box>
                     </Box>
@@ -189,17 +191,15 @@ function EmployeeList() {
     );
 }
 
-// Main Export Component
-export default function El() {
+function EmployeeManagementPage() {
     return (
-        <Box sx={{ display: 'flex' }}>
-            {/* Sidebar takes a fixed width */}
-            <Sidebar />
-
-            {/* Main content fills the remaining space */}
-            <Box sx={{ flexGrow: 1 }}>
-                <EmployeeList />
-            </Box>
+      <Box sx={{ display: 'flex' }}>
+        <Sidebar />
+        <Box sx={{ flex: 1, padding: 3 }}>
+          <EmployeeList />
         </Box>
+      </Box>
     );
 }
+
+export default EmployeeManagementPage;

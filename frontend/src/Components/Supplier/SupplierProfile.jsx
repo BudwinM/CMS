@@ -22,9 +22,6 @@ function Sidebar() {
         <Button component={Link} to="/suppliers" startIcon={<PeopleIcon />} fullWidth sx={{ justifyContent: 'flex-start', backgroundColor: '#FBBF24', color: '#FFF' }}>
           Suppliers
         </Button>
-        <Button component={Link} to="/orders" startIcon={<ListAltIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
-          Orders
-        </Button>
         <Button component={Link} to="/quotation" startIcon={<DescriptionIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
           Quotation
         </Button>

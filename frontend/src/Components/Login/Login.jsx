@@ -40,6 +40,9 @@ function Login() {
                     } else if (loggedInUser.type === "employee") {
                         alert("Employee Manager Login Successful");
                         navigate("/EmployeeDashboard");
+                    } else if (loggedInUser.type === "user") {
+                        alert("Employee Manager Login Successful");
+                        navigate("/EmployeeDashboard");
                     } else {
                         alert("Admin Login Successful");
                         navigate("/admindashboard");

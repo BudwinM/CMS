@@ -10,6 +10,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import AddEmployee from '../Admin/Employees/AddEmployee'; // Adjust path as necessary
+import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate } from 'react-router-dom';
 
 const URL = "http://localhost:4001/employees";
@@ -31,6 +32,9 @@ function Sidebar() {
         </Button>
         <Button component={Link} to="/project-requests" startIcon={<InventoryIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
           Project Requests
+        </Button>
+        <Button component={Link} to="/" startIcon={<LogoutIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
+          Logout
         </Button>
       </Box>
     </Box>
@@ -147,7 +151,7 @@ function EmployeeList() {
       acc[employee.position] = (acc[employee.position] || 0) + 1;
       return acc;
     }, {});
-    
+
     return (
       <Box>
         <Typography variant="h5" sx={{ marginBottom: 2 }}>Employee Analysis Summary</Typography>

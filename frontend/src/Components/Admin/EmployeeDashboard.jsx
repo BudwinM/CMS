@@ -10,6 +10,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import DescriptionIcon from '@mui/icons-material/Description';
 import InventoryIcon from '@mui/icons-material/Inventory';
+import LogoutIcon from '@mui/icons-material/Logout';
 import AddEmployee from '../Admin/Employees/AddEmployee'; // Adjust path as necessary
 import { useNavigate } from 'react-router-dom';
 
@@ -34,6 +35,9 @@ function Sidebar() {
         <Button component={Link} to="/project-requests" startIcon={<InventoryIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
           Project Requests
         </Button>
+        <Button component={Link} to="/" startIcon={<LogoutIcon />} fullWidth sx={{ justifyContent: 'flex-start', color: '#FFF' }}>
+          Logout
+        </Button>
       </Box>
     </Box>
   );
@@ -45,13 +49,13 @@ function SummaryStats() {
       <Grid item xs={12} sm={3}>
         <Paper elevation={3} sx={{ padding: 2 }}>
           <Typography variant="h6">Total Employees</Typography>
-          <Typography variant="h4" sx={{ color: '#FF0000' }}>141</Typography>
+          <Typography variant="h4" sx={{ color: '#FF0000' }}>11</Typography>
         </Paper>
       </Grid>
       <Grid item xs={12} sm={3}>
         <Paper elevation={3} sx={{ padding: 2 }}>
           <Typography variant="h6">Project Requests</Typography>
-          <Typography variant="h4" sx={{ color: '#FFAB00' }}>24</Typography>
+          <Typography variant="h4" sx={{ color: '#FFAB00' }}>3</Typography>
         </Paper>
       </Grid>
     </Grid>
@@ -238,11 +242,11 @@ const ProjectRequests = () => {
                 <TableCell>{project.name}</TableCell>
                 <TableCell>{project.id}</TableCell>
                 <TableCell>
-                                    <Button variant="contained" sx={{ backgroundColor: project.status === 'PENDING' ? '#FFAB00' : '#00C853', color: '#FFF' }}>
-                                        {project.status}
-                                    </Button>
-                                </TableCell>                <TableCell>
-                                <Button sx={{ backgroundColor: '#FEC304', color: 'white', marginRight: 1 }}>Details</Button>
+                  <Button variant="contained" sx={{ backgroundColor: project.status === 'PENDING' ? '#FFAB00' : '#00C853', color: '#FFF' }}>
+                    {project.status}
+                  </Button>
+                </TableCell>                <TableCell>
+                  <Button sx={{ backgroundColor: '#FEC304', color: 'white', marginRight: 1 }}>Details</Button>
                   <Button sx={{ backgroundColor: '#000', color: 'white' }}>Delete</Button>
 
                 </TableCell>

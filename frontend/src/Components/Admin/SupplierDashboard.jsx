@@ -38,15 +38,6 @@ function Sidebar() {
                 </Button>
                 <Button
                     component={Link}
-                    to="/orders"
-                    startIcon={<ListAltIcon />}
-                    fullWidth
-                    sx={{ justifyContent: 'flex-start', color: '#FFF' }}
-                >
-                    Orders
-                </Button>
-                <Button
-                    component={Link}
                     to="/quotation"
                     startIcon={<DescriptionIcon />}
                     fullWidth
@@ -84,25 +75,25 @@ function SummaryStats() {
             <Grid item xs={12} sm={3}>
                 <Paper elevation={3} sx={{ padding: 2 }}>
                     <Typography variant="h6">Total Orders</Typography>
-                    <Typography variant="h4" sx={{ color: '#FF0000' }}>141</Typography>
+                    <Typography variant="h4" sx={{ color: '#FF0000' }}>0</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={3}>
                 <Paper elevation={3} sx={{ padding: 2 }}>
                     <Typography variant="h6">Total Suppliers</Typography>
-                    <Typography variant="h4" sx={{ color: '#00C853' }}>24</Typography>
+                    <Typography variant="h4" sx={{ color: '#00C853' }}>8</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={3}>
                 <Paper elevation={3} sx={{ padding: 2 }}>
                     <Typography variant="h6">Pending Inventory Requests</Typography>
-                    <Typography variant="h4" sx={{ color: '#FFAB00' }}>14</Typography>
+                    <Typography variant="h4" sx={{ color: '#FFAB00' }}>3</Typography>
                 </Paper>
             </Grid>
             <Grid item xs={12} sm={3}>
                 <Paper elevation={3} sx={{ padding: 2 }}>
                     <Typography variant="h6">Total Quotations</Typography>
-                    <Typography variant="h4" sx={{ color: '#3D5AFE' }}>150</Typography>
+                    <Typography variant="h4" sx={{ color: '#3D5AFE' }}>3</Typography>
                 </Paper>
             </Grid>
         </Grid>

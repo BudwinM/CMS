@@ -130,15 +130,6 @@ function SupplierList() {
                 </Button>
                 <Button
                     component={Link}
-                    to="/orders"
-                    startIcon={<ListAltIcon />}
-                    fullWidth
-                    sx={{ justifyContent: 'flex-start', color: '#FFF' }}
-                >
-                    Orders
-                </Button>
-                <Button
-                    component={Link}
                     to="/quotation"
                     startIcon={<DescriptionIcon />}
                     fullWidth

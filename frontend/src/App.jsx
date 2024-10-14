@@ -36,7 +36,6 @@ import Employee from './Components/Admin/Employees/Employee';
 import EmployeeProfile from './Components/Employee/EmployeeProfile';
 
 import { AuthProvider } from './Components/Auth/AuthContext';  // Import AuthProvider
-import { Home } from '@mui/icons-material';
 
 
 function App() {
