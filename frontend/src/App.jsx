@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+import HomePage from './Components/Home/Home';
 import Login from './Components/Login/Login';
+import AboutUs from './Components/pages/AboutUs';
 import Register from './Components/Login/Register';
 import SupplierList from './Components/Supplier/SupplierList';
 import SupplierManagement from './Components/Supplier/SupplierProfile';
@@ -34,6 +36,7 @@ import Employee from './Components/Admin/Employees/Employee';
 import EmployeeProfile from './Components/Employee/EmployeeProfile';
 
 import { AuthProvider } from './Components/Auth/AuthContext';  // Import AuthProvider
+import { Home } from '@mui/icons-material';
 
 
 function App() {
@@ -42,7 +45,7 @@ function App() {
       <Router>
         <Routes>
           {/* Home Page as the default route */}
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<HomePage />} />
 
           {/* Login Page */}
           <Route path="/login" element={<Login />} />
@@ -52,6 +55,7 @@ function App() {
 
           {/* Login Page */}
           <Route path="/login" element={<Login />} />
+          <Route path="/about-us" element={<AboutUs />} />
           <Route path='/signup' element={<Register />} />
           <Route path='/suppliers' element={<SupplierList />} />
           <Route path='/supplier-quality' element={<SupplierQuality />} />

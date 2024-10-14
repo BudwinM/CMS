@@ -67,16 +67,13 @@ function Register() {
     };
 
     return (
-        <Box sx={{ backgroundColor: '#FAF2F2', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-            <Navbar />
+        <Box sx={{ backgroundColor: '#FEC304', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
             <Container sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', paddingY: 5 }}>
-                <Paper elevation={6} sx={{ paddingRight: 4, paddingLeft: 4, paddingTop: 4, borderRadius: 2, maxWidth: 900 }}>
-                    <Grid container spacing={4}>
-                        <Grid item xs={12} sm={5} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: '#F8D9D9', borderRadius: 2 }}>
-                            <img src={Logo} alt="Crystal Elegance" style={{ maxWidth: '100%', paddingRight: 30, height: '50vh', paddingBottom: 30 }} />
+                <Paper elevation={6} sx={{ paddingRight: 4, paddingLeft: 4, paddingTop: 4, borderRadius: 2, maxWidth: 900, backgroundColor: '#fff' }}>
+                        <Grid item xs={12} sm={5} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: 2 }}>
                         </Grid>
                         <Grid item xs={12} sm={7}>
-                            <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold' }}>
+                            <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', color: 'black' }}>
                                 REGISTER
                             </Typography>
                             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
@@ -89,7 +86,7 @@ function Register() {
                                     onChange={handleInputChange}
                                     InputProps={{
                                         startAdornment: <PersonIcon color="disabled" />,
-                                        sx: { backgroundColor: '#FDF2F2', borderRadius: 2 }
+                                        sx: { backgroundColor: '#ffeab0', borderRadius: 2 }
                                     }}
                                     sx={{ marginBottom: 2 }}
                                 />
@@ -102,7 +99,7 @@ function Register() {
                                     onChange={handleInputChange}
                                     InputProps={{
                                         startAdornment: <PersonIcon color="disabled" />,
-                                        sx: { backgroundColor: '#FDF2F2', borderRadius: 2 }
+                                        sx: { backgroundColor: '#ffeab0', borderRadius: 2 }
                                     }}
                                     sx={{ marginBottom: 2 }}
                                 />
@@ -115,7 +112,7 @@ function Register() {
                                     onChange={handleInputChange}
                                     InputProps={{
                                         startAdornment: <EmailIcon color="disabled" />,
-                                        sx: { backgroundColor: '#FDF2F2', borderRadius: 2 }
+                                        sx: { backgroundColor: '#ffeab0', borderRadius: 2 }
                                     }}
                                     sx={{ marginBottom: 2 }}
                                 />
@@ -128,7 +125,7 @@ function Register() {
                                     onChange={handleInputChange}
                                     InputProps={{
                                         startAdornment: <PhoneIcon color="disabled" />,
-                                        sx: { backgroundColor: '#FDF2F2', borderRadius: 2 }
+                                        sx: { backgroundColor: '#ffeab0', borderRadius: 2 }
                                     }}
                                     sx={{ marginBottom: 2 }}
                                 />
@@ -142,7 +139,7 @@ function Register() {
                                     onChange={handleInputChange}
                                     InputProps={{
                                         startAdornment: <LockIcon color="disabled" />,
-                                        sx: { backgroundColor: '#FDF2F2', borderRadius: 2 }
+                                        sx: { backgroundColor: '#ffeab0', borderRadius: 2 }
                                     }}
                                     sx={{ marginBottom: 2 }}
                                 />
@@ -156,7 +153,7 @@ function Register() {
                                     onChange={handleInputChange}
                                     InputProps={{
                                         startAdornment: <LockIcon color="disabled" />,
-                                        sx: { backgroundColor: '#FDF2F2', borderRadius: 2 }
+                                        sx: { backgroundColor: '#ffeab0', borderRadius: 2 }
                                     }}
                                     sx={{ marginBottom: 2 }}
                                 />
@@ -168,15 +165,15 @@ function Register() {
                                         />
                                     }
                                     label="Accept Terms and Conditions"
-                                    sx={{ marginBottom: 2 }}
+                                    sx={{ marginBottom: 2, color: 'black' }}
                                 />
                                 <Button
                                     type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{
-                                        backgroundColor: '#F8B9B7',
-                                        color: '#fff',
+                                        backgroundColor: 'black',
+                                        color: '#FEC304',
                                         paddingY: 1.5,
                                         borderRadius: 2,
                                         boxShadow: 'none',
@@ -187,14 +184,12 @@ function Register() {
                                     Create Account
                                 </Button>
                                 <Divider sx={{ marginY: 2 }}>
-                                    <Typography variant="body2">Or sign up with</Typography>
+                                    <Typography variant="body2" color="black">Or sign up with</Typography>
                                 </Divider>
                             </Box>
-                        </Grid>
                     </Grid>
                 </Paper>
             </Container>
-            <Footer />
         </Box>
     );
 }
