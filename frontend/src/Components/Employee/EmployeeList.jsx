@@ -41,6 +41,7 @@ function Sidebar() {
   );
 }
 
+
 const fetchEmployees = async () => {
   try {
     const response = await axios.get(URL);

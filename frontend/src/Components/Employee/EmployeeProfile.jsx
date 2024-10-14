@@ -11,6 +11,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 
 const URL = "http://localhost:4001/employees";
 
+
 function Sidebar() {
   return (
     <Box sx={{ width: 240, backgroundColor: '#1C1C1C', color: '#FFF', minHeight: '100vh', paddingTop: 2 }}>

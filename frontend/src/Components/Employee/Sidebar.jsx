@@ -31,4 +31,5 @@ const Sidebar = () => {
         </Box>
     );
 }
+
 export default Sidebar;

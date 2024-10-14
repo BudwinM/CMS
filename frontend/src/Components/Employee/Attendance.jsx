@@ -12,6 +12,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import LogoutIcon from '@mui/icons-material/Logout';
 import InventoryIcon from '@mui/icons-material/Inventory';
 
+
 const URL = "http://localhost:4001/employees";
 
 // Register Chart.js components
